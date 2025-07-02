@@ -1,79 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ESP32-CAM | Sécurisé</title>
-  <style>
-    body {
-      background-color: #0f172a;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-
-    h1 {
-      color: #38bdf8;
-    }
-
-    #login, #content {
-      display: none;
-      width: 100%;
-      max-width: 640px;
-      text-align: center;
-    }
-
-    input[type="password"] {
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-      font-size: 16px;
-      width: 80%;
-    }
-
-    .btn {
-      background-color: #2563eb;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      margin: 10px 5px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background-color: #1e40af;
-    }
-
-    .btn.red {
-      background-color: #dc2626;
-    }
-
-    .btn.red:hover {
-      background-color: #991b1b;
-    }
-
-    #camera {
-      display: none;
-      border: 5px solid #38bdf8;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 640px;
-      margin: 20px auto;
-      box-shadow: 0 0 20px #38bdf8;
-    }
-
-    .footer {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #94a3b8;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -81,8 +12,8 @@
   <div id="login">
     <h1>🔒 Connexion sécurisée</h1>
     <p>Entrez le mot de passe :</p>
-    <input type="password" id="password" placeholder="Mot de passe">
-    <br>
+    <input type="password" id="password" placeholder="Mot de passe" />
+    <br />
     <button class="btn" onclick="verifierMotDePasse()">Se connecter</button>
     <p id="erreur" style="color: red; display: none;">Mot de passe incorrect</p>
   </div>
@@ -102,57 +33,11 @@
       <button class="btn red" onclick="eteindreLED()">🚫 Éteindre LED</button>
     </div>
 
-    <img id="camera" src="" alt="Flux vidéo ESP32-CAM">
+    <img id="camera" src="" alt="Flux vidéo ESP32-CAM" />
 
     <div class="footer">Fait par Josué Wenga – INNOVA TECH</div>
   </div>
 
-  <script>
-    const motDePasse = "innova123"; // 🔐 À personnaliser
-    const baseUrl = "http://192.168.36.27"; // 👉 À modifier avec IP ESP32-CAM
-    const streamUrl = `${baseUrl}:81/stream`;
-
-    function verifierMotDePasse() {
-      const input = document.getElementById("password").value;
-      if (input === motDePasse) {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("content").style.display = "block";
-      } else {
-        document.getElementById("erreur").style.display = "block";
-      }
-    }
-
-    function lancerStream() {
-      const cam = document.getElementById("camera");
-      cam.src = streamUrl;
-      cam.style.display = "block";
-    }
-
-    function arreterStream() {
-      const cam = document.getElementById("camera");
-      cam.src = "";
-      cam.style.display = "none";
-    }
-
-    function prendrePhoto() {
-      window.open(`${baseUrl}/capture`, "_blank");
-    }
-
-    function allumerLED() {
-      fetch(`${baseUrl}/led/on`)
-        .then(() => alert("LED allumée !"))
-        .catch(() => alert("Erreur de connexion"));
-    }
-
-    function eteindreLED() {
-      fetch(`${baseUrl}/led/off`)
-        .then(() => alert("LED éteinte !"))
-        .catch(() => alert("Erreur de connexion"));
-    }
-
-    // Affiche le formulaire au démarrage
-    document.getElementById("login").style.display = "block";
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
